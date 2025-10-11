@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Quiz Report PDF</title>
+  <style>
+    table { width: 100%; border-collapse: collapse; }
+    th, td { border: 1px solid #333; padding: 5px; }
+    th { background: #eee; }
+  </style>
+</head>
+<body>
+  <h1>Quiz Report</h1>
+  <table>
+    <tr>
+      <th>Topic</th>
+      <th>Question</th>
+      <th>Your Answer</th>
+      <th>Correct Answer</th>
+      <th>Correct?</th>
+    </tr>
+    {% for row in data %}
+    <tr>
+      <td>{{ row[0] }}</td>
+      <td>{{ row[1] }}</td>
+      <td>{{ row[2] }}</td>
+      <td>{{ row[3] }}</td>
+      <td>{{ 'Yes' if row[4] else 'No' }}</td>
+    </tr>
+    {% endfor %}
+  </table>
+</body>
+</html>

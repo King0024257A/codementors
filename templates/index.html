@@ -1,0 +1,58 @@
+{% extends "layout.html" %}
+{% block title %}Dashboard | CodeMentor AI{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+  <div class="col-md-8">
+
+    <!-- Welcome & New Quiz -->
+    <div class="card shadow-sm mb-4">
+      <div class="card-body">
+        <h3 class="card-title mb-3">Welcome, {{ username }}!</h3>
+        <p class="text-muted">Start a new quiz to test your coding knowledge.</p>
+        <form method="post" class="row g-3">
+          <div class="col-12">
+            <label for="topic" class="form-label">What topic do you want to learn?</label>
+            <input type="text" name="topic" id="topic" class="form-control form-control-lg"
+                   placeholder="E.g., Python Loops, APIs, Flask..." required>
+          </div>
+          <div class="col-12 d-grid">
+            <button type="submit" class="btn btn-primary btn-lg">Start New Quiz</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Past Quizzes with Scores -->
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <h5 class="card-title mb-3">Your Past Quizzes</h5>
+        {% if quizzes %}
+          <ul class="list-group">
+            {% for quiz in quizzes %}
+              <li class="list-group-item d-flex justify-content-between align-items-center">
+                <div>
+                  <strong>{{ quiz.topic }}</strong>
+                  <span class="badge bg-primary ms-2">ID: {{ quiz.id }}</span>
+                  <span class="badge bg-success ms-2">Score: {{ quiz.correct }}/{{ quiz.total }}</span>
+                </div>
+                <div class="btn-group btn-group-sm">
+                  <a href="{{ url_for('report') }}?quiz_id={{ quiz.id }}" class="btn btn-outline-info">View Report</a>
+                  <form action="{{ url_for('delete_quiz', quiz_id=quiz.id) }}" method="post" class="ms-1">
+                    <button type="submit" class="btn btn-outline-danger">Delete</button>
+                  </form>
+                </div>
+              </li>
+            {% endfor %}
+          </ul>
+        {% else %}
+          <div class="alert alert-info mb-0">
+            You haven't taken any quizzes yet. Start your first quiz above!
+          </div>
+        {% endif %}
+      </div>
+    </div>
+
+  </div>
+</div>
+{% endblock %}

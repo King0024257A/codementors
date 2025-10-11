@@ -1,0 +1,56 @@
+{% extends "layout.html" %}
+{% block title %}Quiz Report | CodeMentor AI{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-10">
+        <div class="card shadow-sm mb-4">
+            <div class="card-body">
+                <h4 class="card-title mb-3">Quiz Report</h4>
+                {% if data %}
+                    <p><strong>Topic:</strong> {{ data[0][0] }}</p>
+                    <div class="table-responsive">
+                        <table class="table table-bordered align-middle">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>#</th>
+                                    <th>Question</th>
+                                    <th>Your Answer</th>
+                                    <th>Correct Answer</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for row in data %}
+                                    <tr>
+                                        <td>{{ loop.index }}</td>
+                                        <td>{{ row[1] }}</td>
+                                        <td>{{ row[2] }}</td>
+                                        <td>{{ row[3] }}</td>
+                                        <td>
+                                            {% if row[4] %}
+                                                <span class="badge bg-success">Correct</span>
+                                            {% else %}
+                                                <span class="badge bg-danger">Wrong</span>
+                                            {% endif %}
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="mt-4 d-flex justify-content-between">
+                        <a href="{{ url_for('index') }}" class="btn btn-secondary">Back to Home</a>
+                        <a href="{{ url_for('download_pdf') }}?quiz_id={{ quiz_id }}" class="btn btn-outline-primary">Download PDF</a>
+                    </div>
+                {% else %}
+                    <div class="alert alert-info">
+                        Report not found or no results for this quiz.
+                    </div>
+                    <a href="{{ url_for('index') }}" class="btn btn-secondary">Back to Home</a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

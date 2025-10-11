@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Learning: {{ topic }}</title>
+</head>
+<body>
+    <h1>Learning: {{ topic }}</h1>
+    <h2>Explanation</h2>
+    <pre>{{ explanation | safe }}</pre>
+
+    <h2>Quiz</h2>
+    <p><b>{{ question }}</b></p>
+    <form method="post">
+        {% for option in options %}
+            <label>
+                <input type="radio" name="answer" value="{{ option[0] }}" required>
+                {{ option }}
+            </label><br>
+        {% endfor %}
+        <input type="hidden" name="question" value="{{ question }}">
+        <input type="hidden" name="correct_answer" value="{{ answer }}">
+        <button type="submit">Submit Answer</button>
+    </form>
+
+    <br>
+    <a href="{{ url_for('index') }}">Learn Another Topic</a>
+</body>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Admin Dashboard</title>
+</head>
+<body>
+  <h1>Admin Dashboard</h1>
+
+  <h2>Users</h2>
+  <table border="1">
+    <tr><th>ID</th><th>Username</th></tr>
+    {% for u in users %}
+    <tr>
+      <td>{{ u[0] }}</td>
+      <td>{{ u[1] }}</td>
+    </tr>
+    {% endfor %}
+  </table>
+
+  <h2>Quiz Results</h2>
+  <table border="1">
+    <tr>
+      <th>ID</th><th>Username</th><th>Topic</th><th>Question</th><th>User Answer</th><th>Correct Answer</th><th>Is Correct</th>
+    </tr>
+    {% for r in results %}
+    <tr>
+      <td>{{ r[0] }}</td>
+      <td>{{ r[1] }}</td>
+      <td>{{ r[2] }}</td>
+      <td>{{ r[3] }}</td>
+      <td>{{ r[4] }}</td>
+      <td>{{ r[5] }}</td>
+      <td>{{ '✅' if r[6] else '❌' }}</td>
+    </tr>
+    {% endfor %}
+  </table>
+
+  <p><a href="{{ url_for('index') }}">Back to Home</a></p>
+</body>
+</html>

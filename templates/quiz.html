@@ -1,0 +1,29 @@
+{% extends "layout.html" %}
+{% block title %}Quiz | CodeMentor AI{% endblock %}
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-10">
+        <div class="card shadow">
+            <div class="card-body">
+                <h4 class="mb-4">Quiz: {{ topic }}</h4>
+                <form method="POST">
+                    {% for q in quiz %}
+                        {% set idx = loop.index0 %}
+                        <div class="mb-4">
+                            <p class="fw-bold">{{ loop.index }}. {{ q.question }}</p>
+                            {% for option in q.options %}
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="q{{ idx }}" value="{{ option[0] }}" required>
+                                    <label class="form-check-label">{{ option }}</label>
+                                </div>
+                            {% endfor %}
+                        </div>
+                        <hr>
+                    {% endfor %}
+                    <button type="submit" class="btn btn-success">Submit Quiz</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
